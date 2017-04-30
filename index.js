@@ -33,16 +33,32 @@ router.get('/test', function(req, res) {
     south: 39.51195501951582,
     west: -119.87841348035886,
     };
-
+    console.log(JSON.stringify(coordinatePack));
     Noaa.resolveParameters(coordinatePack, 2005);
     Noaa.GetData(function(result){
         res.json(result);
-    })
+    });
 });
-router.get('/UserById', function(req, res){
-    var userID = req.query.id;
-    var user = userList.getUserById(userID);
-    res.json(user);
+router.post('/heat', function(req, res){
+    var coordinates = req.body.coordinates;
+    coordinates = JSON.parse(coordinates);
+    var year = req.body.year;
+
+    Noaa.resolveParameters(coordinates, year);
+    Noaa.GetData(function(result){
+        res.json(result);
+    });
+});
+
+router.post('/heatOverTime', function(req, res){
+    var coordinates = req.body.coordinates;
+    var startYear = req.body.startYear;
+    var endYear = req.body.endYear;
+
+    Noaa.resolveParameters(coordinates, {startYear:startYear, endYear:endYear});
+    Noaa.GetData(function(result){
+        res.json(result);
+    });
 });
 
 

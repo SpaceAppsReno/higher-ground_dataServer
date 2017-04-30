@@ -24,7 +24,6 @@ coordinateConverter.prototype.getCoordinateIndexes = function(lat, long){
     var returnCoordinates = {lat:0, lon:0};
     console.log(lat, long);
     // long = Math.abs(long);
-    console.log(this.longitudes[27], this.longitudes[28]);
     //do this to convert to 360 degrees.
     if (long < 0){
         long = long + 360;
@@ -34,12 +33,18 @@ coordinateConverter.prototype.getCoordinateIndexes = function(lat, long){
             console.log("found a good latitude", index, this.latitudes[index], this.latitudes[index+1]);
             returnCoordinates.lat = index+1;
             break;
+        }else if (lat === this.latitudes[index]){
+            returnCoordinates.lon = index;
+            break;
         }
     }
     for (var index = 0; index < this.longitudes.length-1; index++ ){
         if (long > this.longitudes[index] && long < this.longitudes[index+1]){
             console.log("found a good longitude", index, this.longitudes[index], this.longitudes[index+1]);
             returnCoordinates.lon = index+1;
+            break;
+        } else if (long === this.longitudes[index]){
+            returnCoordinates.lon = index;
             break;
         }
     }

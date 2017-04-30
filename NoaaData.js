@@ -67,7 +67,14 @@ NoaaData.prototype.GetData = function(callback){
                         longitudes = line.split(", ");
                         longitudes = longitudes.splice(1);
                         for (var index = 0; index < longitudes.length; index++){
+
                             longitudes[index] = parseFloat(longitudes[index]);
+                            var longitude = longitudes[index];
+                            if (longitudes[index] > 180){
+                                longitude = longitudes[index]-360;
+                            }
+                            longitudes[index] = longitude;
+                            // longitudes[index] = parseFloat(longitudes[index]);
                         }
                     }
                     //parse out the data
@@ -132,7 +139,13 @@ NoaaData.prototype.GetDataSweepYear = function(YearString, callback){
                         longitudes = line.split(", ");
                         longitudes = longitudes.splice(1);
                         for (var index = 0; index < longitudes.length; index++){
+
                             longitudes[index] = parseFloat(longitudes[index]);
+                            var longitude = longitudes[index];
+                            if (longitudes[index] > 180){
+                                longitude = longitudes[index]-360;
+                            }
+                            longitudes[index] = longitude;
                         }
                     }
                     //parse out the data
@@ -148,6 +161,9 @@ NoaaData.prototype.GetDataSweepYear = function(YearString, callback){
                         var temps = line.split(', ');
                         temps = temps.splice(1);
                         for (var index = 0; index < longitudes.length; index++) {
+
+                            //convert longitude back to -180 to 180 degrees
+
                             var dataEntry = {lat:latValue, lon: longitudes[index], temp:(parseFloat(temps[index])-273.15.toPrecision(4)), year:yearIndex};
                             dataLines.push(dataEntry)
                         }

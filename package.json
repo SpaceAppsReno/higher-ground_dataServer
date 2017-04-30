@@ -1,9 +1,19 @@
 {
   "name": "HigherGround_DataAPI",
   "version": "0.0.1",
+  "description": "Backend to process requests to NOAA and format the returned data in a method that we can use",
+  "author": "Brandon Donato-Long",
+  "private": false,
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.1",
     "cors": "^2.8.3",
     "express": "^4.15.2"
+  },
+  "engines": {
+    "node": ">= 6.9.1"
+  },
+  "scripts": {
+    "start": "node index.js"
   }
 }

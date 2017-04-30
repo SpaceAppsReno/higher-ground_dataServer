@@ -9,6 +9,7 @@ var cors = require('cors');
 var NoaaData = require('./NoaaData');
 var Noaa = new NoaaData();
 
+
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,10 +40,15 @@ router.get('/test', function(req, res) {
         res.json(result);
     });
 });
-router.post('/heat', function(req, res){
-    var coordinates = req.body.coordinates;
-    coordinates = JSON.parse(coordinates);
-    var year = req.body.year;
+router.get('/heat', function(req, res){
+    var coordinates = {
+        east: parseFloat(req.query.bounds_east),
+        west: parseFloat(req.query.bounds_west),
+        north: parseFloat(req.query.bounds_north),
+        south: parseFloat(req.query.bounds_south)
+    };
+    // coordinates = JSON.parse(coordinates);
+    var year = parseFloat(req.query.year);
 
     Noaa.resolveParameters(coordinates, year);
     Noaa.GetData(function(result){
@@ -55,8 +61,15 @@ router.post('/heatOverTime', function(req, res){
     var startYear = req.body.startYear;
     var endYear = req.body.endYear;
 
-    Noaa.resolveParameters(coordinates, {startYear:startYear, endYear:endYear});
-    Noaa.GetData(function(result){
+    startYearIndex = startYear - 2001;
+    endYearIndex = endYear - 2001;
+    var yearString = startYearIndex.toString();
+    if ((endYearIndex - startYearIndex) > 0) {
+        yearString = require('util').format("%s:%s", startYearIndex, endYearIndex);
+    }
+
+    Noaa.resolveParameters(coordinates, startYear);
+    Noaa.GetDataSweepYear(yearString, function(result){
         res.json(result);
     });
 });

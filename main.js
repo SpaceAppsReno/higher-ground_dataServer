@@ -22,6 +22,10 @@ var port = process.env.PORT || 8080;        // set our port
 var router = express.Router();              // get an instance of the express Router
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+router.get('/', function(req, res) {
+    res.json({ message: 'hooray! welcome to our api!' });
+});
+
 router.get('/test', function(req, res) {
     var coordinatePack = {
     east: -119.75490311964109,
@@ -44,7 +48,7 @@ router.get('/UserById', function(req, res){
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
-app.use('/api', router);
+app.use(router);
 
 // START THE SERVER
 // =============================================================================

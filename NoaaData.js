@@ -34,15 +34,15 @@ NoaaData.prototype.resolveParameters = function(coordinatePack, year){
     var latDiff = (coordinates1.lat - coordinates2.lat);
     var lonDiff = (coordinates1.lon - coordinates2.lon);
     if (latDiff > 0){
-        this.latString = util.format("%d:%d",coordinates1.lat, coordinates1.lat + latDiff);
+        this.latString = util.format("%d:%d",coordinates2.lat, coordinates1.lat);
     } else if (latDiff < 0){
-        this.latString = util.format("%d:%d",coordinates1.lat, coordinates1.lat - latDiff);
+        this.latString = util.format("%d:%d",coordinates1.lat, coordinates2.lat);
     }
 
     if (lonDiff > 0){
-        this.lonString = util.format("%d:%d",coordinates1.lon, coordinates1.lon + lonDiff);
+        this.lonString = util.format("%d:%d",coordinates2.lon, coordinates1.lon);
     } else if (lonDiff < 0){
-        this.lonString = util.format("%d:%d",coordinates1.lon, coordinates1.lon - lonDiff);
+        this.lonString = util.format("%d:%d",coordinates1.lon, coordinates2.lon);
     }
 
     var yearIndex = year-2001;

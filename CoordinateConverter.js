@@ -34,7 +34,7 @@ coordinateConverter.prototype.getCoordinateIndexes = function(lat, long){
             returnCoordinates.lat = index+1;
             break;
         }else if (lat === this.latitudes[index]){
-            returnCoordinates.lon = index;
+            returnCoordinates.lat = index;
             break;
         }
     }

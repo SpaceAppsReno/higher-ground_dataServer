@@ -1,4 +1,9 @@
 {
   "name": "HigherGround_DataAPI",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "express": "^4.15.2"
+  }
 }
